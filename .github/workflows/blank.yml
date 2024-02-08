@@ -6,7 +6,7 @@ jobs:
   A:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: True
+      continue-on-error: True
       matrix:
         shell: [bash, sh]
     outputs:
