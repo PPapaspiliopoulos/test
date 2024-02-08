@@ -9,8 +9,9 @@ jobs:
       - name: fail
         run:  test= te
   A:
+    needs: [B]
     runs-on: ubuntu-latest
-    environment: ${{ (jobs.B.result == 'success') && ('prod') || ('dev') }}
+    environment: ${{ (needs.B.result == 'success') && ('prod') || ('dev') }}
     steps:
       - name: Check identity
         run: |
