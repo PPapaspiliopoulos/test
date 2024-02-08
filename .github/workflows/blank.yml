@@ -5,13 +5,15 @@ on: [push]
 jobs:
   B:
     runs-on: ubuntu-latest
+    outputs:
+      cond: True
     steps:
       - name: fail
-        run:  test= te
+        run:  echo "run"
   A:
     needs: [B]
     runs-on: ubuntu-latest
-    environment: ${{ (needs.B.result == 'success') && ('prod') || ('dev') }}
+    environment: ${{ (needs.B.outputs.cond == 'False') && ('prod') || ('dev') }}
     steps:
       - name: Check identity
         run: |
