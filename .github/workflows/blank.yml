@@ -5,10 +5,7 @@ on: [push]
 jobs:
   A:
     runs-on: ubuntu-latest
-    strategy:
-      continue-on-error: True
-      matrix:
-        shell: [bash, sh]
+    continue-on-error: True
     outputs:
       authorized_user: False
     steps:
