@@ -9,5 +9,5 @@ jobs:
     steps:
       - name: Check identity
         run: |
-          echo "A prod = ${{ env.A }}"
-          echo "B dev = ${{ env.B }}"
+          echo "A prod = ${{ vars.A }}"
+          echo "B dev = ${{ vars.B }}"
