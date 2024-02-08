@@ -3,9 +3,14 @@ name: build
 on: [push]
 
 jobs:
+  B:
+    runs-on: ubuntu-latest
+    steps:
+      - name: fail
+        run:  test= te
   A:
     runs-on: ubuntu-latest
-    environment: ${{ 'False' && ('prod') || ('dev') }}
+    environment: ${{ (jobs.B.result == 'success') && ('prod') || ('dev') }}
     steps:
       - name: Check identity
         run: |
