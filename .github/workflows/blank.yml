@@ -5,7 +5,7 @@ on: [push]
 jobs:
   A:
     runs-on: ubuntu-latest
-    environment: prod || dev
+    environment: ${{ ('prod') || ('dev') }}
     steps:
       - name: Check identity
         run: |
