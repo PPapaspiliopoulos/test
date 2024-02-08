@@ -5,54 +5,9 @@ on: [push]
 jobs:
   A:
     runs-on: ubuntu-latest
-    continue-on-error: True
-    outputs:
-      authorized_user: False
+    environment: prod || dev
     steps:
       - name: Check identity
-        id: check-authorized-user
-        run: test = te
-
-  B:
-    needs: [A]
-    runs-on: ubuntu-latest
-    if: |
-      (needs.A.result == 'success') && 
-      (!needs.A.outputs.null_value) && 
-      (needs.A.outputs.authorized_user == 'True')
-    steps:
-      - name: inAuth
-        run: echo "B run A= ${{ needs.A.result }}"
-
-  C:
-    needs: [A]
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    if: |
-      (needs.A.result == 'success') && 
-      (!needs.A.outputs.null_value) && 
-      (needs.A.outputs.authorized_user == 'False')
-    steps:
-      - name: exAuth
-        run: echo "C run A= ${{ needs.A.result }}"
-
-  D:
-    needs: [B, C]
-    runs-on: ubuntu-latest
-    if: |
-      always() && 
-      !cancelled() &&
-      (needs.B.result == 'success' || needs.C.result == 'success') &&
-      (needs.B.result != needs.C.result)
-    steps:
-      - name: Authorize
-        shell: bash
-        run: echo 'B= ${{ needs.B.result }} C= ${{ needs.C.result }}'
-
-  E:
-    needs: [D]
-    runs-on: ubuntu-latest
-    if: always()
-    steps:
-      - name: Print D Result
-        run: echo '${{ needs.D.result }} '
+        run: |
+          echo "env.A"
+          echo "env.B"
