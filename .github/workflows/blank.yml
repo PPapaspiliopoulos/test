@@ -13,7 +13,7 @@ jobs:
   A:
     needs: [B]
     runs-on: ubuntu-latest
-    environment: ${{ (needs.B.outputs.cond == 'False') && ('prod') || ('dev') }}
+    environment: ${{ ((needs.B.outputs.cond == 'False') && ('prod')) || ('dev') }}
     steps:
       - name: Check identity
         run: |
