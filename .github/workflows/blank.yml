@@ -5,12 +5,16 @@ on: [push]
 jobs:
   A:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: True
+      matrix:
+        shell: [bash, sh]
     outputs:
       authorized_user: False
     steps:
       - name: Check identity
         id: check-authorized-user
-        run: echo "a"
+        run: test = te
 
   B:
     needs: [A]
