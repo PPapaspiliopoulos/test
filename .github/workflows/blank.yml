@@ -3,7 +3,16 @@ name: build
 on: [push]
 
 jobs:
-  A:
+  authorize-internal:
+    runs-on: ubuntu-latest
+    outputs:
+      internal_run: True
+    if: ${{ needs.check-identity.outputs.authorized_user == 'True' }}
+    steps:
+      - name: Authorize internal
+        run: echo "authorized"
+  
+  authorize-external:
     runs-on: ubuntu-latest
     outputs:
       check_value: ${{ steps.check.outputs.check_value }}
@@ -18,10 +27,15 @@ jobs:
           fi
           echo "check_value=$check_value" >> "$GITHUB_OUTPUT"
 
-  B:
-    needs: [A]
+  authorize:
+    needs: [authorize-external, authorize-internal]
     runs-on: ubuntu-latest
-    if: needs.A.outputs.check_value == 'True'
+    if: |
+      always() &&
+      !failure() && !cancelled() &&
+      (needs.authorize-internal.result == 'success' || needs.authorize-external.result == 'success') &&
+      (needs.authorize-internal.result != needs.authorize-external.result) &&
+      (needs.authorize-external.outputs.check_value == 'True' || needs.authorize-internal.outputs.internal_run == 'True')
     steps:
       - name: Check identity
         run: echo "correct environment passed"
