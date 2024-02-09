@@ -18,14 +18,14 @@ jobs:
   authorize-internal:
     needs: [check-identity]
     runs-on: ubuntu-latest
-    if: (needs.check-identity.result == 'successx') && 
+    if: (needs.check-identity.result == 'success') && 
         (!needs.check-identity.outputs.null_value) && 
         (needs.check-identity.outputs.authorized_user == 'True')
     outputs:
-      internal_run: ${{ steps.authIn.outputs.internal_run }}
+      internal_run: ${{ steps.authorize-internal.outputs.internal_run }}
     steps:
       - name: Authorize internal
-        id: authIn
+        id: authorize-internal
         run: |
           internal_run='True'
           echo "internal_run=$internal_run" >> "$GITHUB_OUTPUT"
