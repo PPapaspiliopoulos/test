@@ -19,7 +19,7 @@ jobs:
       - name: Check identity
         run: echo "B dev = ${{ vars.B }}"
   C:
-    needs: [B]
+    needs: [A]
     runs-on: ubuntu-latest
     steps:
       - name: Check identity
