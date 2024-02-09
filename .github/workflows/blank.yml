@@ -17,6 +17,7 @@ jobs:
             check_value='True'
           fi
           echo "check_value=$check_value"
+          echo "check_value=$check_value" >> "$GITHUB_OUTPUT"
 
   B:
     needs: [A]
