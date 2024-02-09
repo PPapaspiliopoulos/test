@@ -18,8 +18,8 @@ jobs:
   authorize-internal:
     needs: [check-identity]
     runs-on: ubuntu-latest
-    if: (needs.A.result == 'success') && 
-        (!needs.A.outputs.null_value) && 
+    if: (needs.check-identity.result == 'success') && 
+        (!needs.check-identity.outputs.null_value) && 
         (needs.check-identity.outputs.authorized_user == 'True')
     outputs:
       internal_run: True
