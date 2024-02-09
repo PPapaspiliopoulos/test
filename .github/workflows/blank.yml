@@ -62,3 +62,16 @@ jobs:
     steps:
       - name: Check identity
         run: echo "correct environment passed"
+  
+  build-yml-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: echo "run"
+
+  build_matrix:
+    needs: [build-yml-check, authorize]
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        run: echo "run"
