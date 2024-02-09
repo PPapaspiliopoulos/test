@@ -13,7 +13,7 @@ jobs:
   A:
     needs: [B]
     runs-on: ubuntu-latest
-    environment: dev
+    environment: dex
     if: needs.B.outputs.cond == 'False'
     steps:
       - name: Check identity
