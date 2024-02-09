@@ -12,7 +12,7 @@ jobs:
         id: check-authorized-user
         shell: bash
         run: |
-          authorized_user='True'
+          authorized_user='False'
           echo "authorized_user=$authorized_user" >> "$GITHUB_OUTPUT"
  
   authorize-internal:
