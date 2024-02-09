@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       internal_run: True
-    if: ${{ needs.check-identity.outputs.authorized_user == 'True' }}
     steps:
       - name: Authorize internal
         run: echo "authorized"
