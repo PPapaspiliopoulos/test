@@ -13,9 +13,8 @@ jobs:
   A:
     needs: [B]
     runs-on: ubuntu-latest
-    environment: ${{ ((needs.B.outputs.cond == 'False') && ('prod')) || ('dev') }}
+    if: needs.B.outputs.cond == 'False'
+    environment: dev
     steps:
       - name: Check identity
-        run: |
-          echo "A prod = ${{ vars.A }}"
-          echo "B dev = ${{ vars.B }}"
+        run: echo "B dev = ${{ vars.B }}"
