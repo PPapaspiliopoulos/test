@@ -3,24 +3,25 @@ name: build
 on: [push]
 
 jobs:
-  B:
+  A:
     runs-on: ubuntu-latest
     outputs:
-      cond: False
+      check_value: ${{ steps.check.outputs.check_value }}
+    environment: correct_env
     steps:
-      - name: fail
-        run:  echo "run"
-  A:
-    needs: [B]
-    runs-on: ubuntu-latest
-    environment: dex
-    if: needs.B.outputs.cond == 'False'
-    steps:
-      - name: Check identity
-        run: echo "B dev = ${{ vars.B }}"
-  C:
+      - name: check
+        id: check
+        run: |
+          check_value='False'
+          if [ ${{ vars.CHECK == "True" }} ]; then
+            check_value='True'
+            break
+          fi
+
+  B:
     needs: [A]
     runs-on: ubuntu-latest
+    if: needs.A.outputs.check_value == 'True'
     steps:
       - name: Check identity
-        run: echo "B dev = ${{ vars.B }}"
+        run: echo "correct environment passed"
