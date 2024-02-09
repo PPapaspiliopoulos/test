@@ -18,7 +18,9 @@ jobs:
   authorize-internal:
     needs: [check-identity]
     runs-on: ubuntu-latest
-    if: ${{ needs.check-identity.outputs.authorized_user == 'True' }}
+    if: (needs.A.result == 'success') && 
+        (!needs.A.outputs.null_value) && 
+        (needs.check-identity.outputs.authorized_user == 'True')
     outputs:
       internal_run: True
     steps:
@@ -28,7 +30,9 @@ jobs:
   authorize-external:
     needs: [check-identity]
     runs-on: ubuntu-latest
-    if: ${{ needs.check-identity.outputs.authorized_user == 'False' }}
+    if: (needs.check-identity.result == 'success') && 
+        (!needs.check-identity.outputs.null_value) && 
+        (needs.check-identity.outputs.authorized_user == 'False')
     outputs:
       check_value: ${{ steps.check.outputs.check_value }}
     environment: correct_env
