@@ -16,6 +16,7 @@ jobs:
           if [ ${{ vars.CHECK == 'True' }} ]; then
             check_value='True'
           fi
+          echo "check_value=$check_value"
 
   B:
     needs: [A]
