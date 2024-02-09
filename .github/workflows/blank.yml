@@ -6,7 +6,7 @@ jobs:
   B:
     runs-on: ubuntu-latest
     outputs:
-      cond: False
+      cond: True
     steps:
       - name: fail
         run:  echo "run"
